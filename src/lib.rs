@@ -19,7 +19,7 @@
 pub const CRC16_BITSIZE:        usize = 16;
 pub const CRC16_BITMASK:        u16   = 0xFFFFu16;
 pub const CRC16_POLYNOMIAL:     u16   = 0x1021u16;
-pub const CRC16_INITIAL_CRC:    u16   = 0x0000u16;
+pub const CRC16_INITIAL_CRC:    u16   = 0xFFFFu16;
 pub const CRC16_XOR_OUTPUT:     u16   = 0xFFFFu16;
 pub const CRC16_REFLECT_INPUT:  bool  = false;
 pub const CRC16_REFLECT_OUTPUT: bool  = false;

@@ -593,7 +593,7 @@ pub fn crc16(data: &[u8], initial_crc: u16) -> u16
             TABLE[ 0][p[15] as usize                     ];
     }
 
-    for p in &data[0..10] {
+    for p in &data[data.len() - data.len() % 16..data.len()] {
         s = TABLE[0][(*p as u16 ^ (s >>  8)) as usize] ^ (s << 8);
     }
 

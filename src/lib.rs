@@ -9,6 +9,11 @@
  * * Generated at:: 2018-04-30
  * * Algorithm:: slicing-by-16 (with byte-order free), based Intel's slicing-by-8
  * * Need available memory:: about 1 MiB
+ *
+ * Translated into Rust with minimal changes.
+ * This is a variant of the CCITT CRC16 routine.
+ * With an initial CRC of 0xFFFF, this produces data suitable for use in
+ * CD-ROM subchannels.
  */
 
 pub const CRC16_BITSIZE:        usize = 16;

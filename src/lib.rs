@@ -24,7 +24,7 @@ pub const CRC16_XOR_OUTPUT:     u16   = 0xFFFFu16;
 pub const CRC16_REFLECT_INPUT:  bool  = false;
 pub const CRC16_REFLECT_OUTPUT: bool  = false;
 
-pub fn crc16(data: &[u8], crc: u16) -> u16
+pub fn crc16(data: &[u8], initial_crc: u16) -> u16
 {
     static TABLE: [[u16; 256]; 16] = [
         [
@@ -573,7 +573,7 @@ pub fn crc16(data: &[u8], crc: u16) -> u16
         ]
     ];
 
-    let mut s: u16 = ((crc) & CRC16_BITMASK) ^ CRC16_XOR_OUTPUT;
+    let mut s: u16 = ((initial_crc) & CRC16_BITMASK) ^ CRC16_XOR_OUTPUT;
     for p in data[0..data.len() - data.len() % 16].chunks(16) {
         s = TABLE[15][(p[ 0] as u16 ^ (s >>  8)) as usize] ^
             TABLE[14][(p[ 1] as u16 ^ (s >>  0)) as usize] ^

@@ -575,22 +575,22 @@ pub fn crc16(data: &[u8], initial_crc: u16) -> u16
 
     let mut s: u16 = ((initial_crc) & CRC16_BITMASK) ^ CRC16_XOR_OUTPUT;
     for p in data[0..data.len() - data.len() % 16].chunks(16) {
-        s = TABLE[15][(p[ 0] as u16 ^ (s >>  8)) as usize] ^
-            TABLE[14][(p[ 1] as u16 ^ (s >>  0)) as usize] ^
-            TABLE[13][p[ 2] as usize                     ] ^
-            TABLE[12][p[ 3] as usize                     ] ^
-            TABLE[11][p[ 4] as usize                     ] ^
-            TABLE[10][p[ 5] as usize                     ] ^
-            TABLE[ 9][p[ 6] as usize                     ] ^
-            TABLE[ 8][p[ 7] as usize                     ] ^
-            TABLE[ 7][p[ 8] as usize                     ] ^
-            TABLE[ 6][p[ 9] as usize                     ] ^
-            TABLE[ 5][p[10] as usize                     ] ^
-            TABLE[ 4][p[11] as usize                     ] ^
-            TABLE[ 3][p[12] as usize                     ] ^
-            TABLE[ 2][p[13] as usize                     ] ^
-            TABLE[ 1][p[14] as usize                     ] ^
-            TABLE[ 0][p[15] as usize                     ];
+        s = TABLE[15][(p[ 0] as u16 ^ (s >>  8)) as u8 as usize] ^
+            TABLE[14][(p[ 1] as u16 ^ (s >>  0)) as u8 as usize] ^
+            TABLE[13][p[ 2] as usize                           ] ^
+            TABLE[12][p[ 3] as usize                           ] ^
+            TABLE[11][p[ 4] as usize                           ] ^
+            TABLE[10][p[ 5] as usize                           ] ^
+            TABLE[ 9][p[ 6] as usize                           ] ^
+            TABLE[ 8][p[ 7] as usize                           ] ^
+            TABLE[ 7][p[ 8] as usize                           ] ^
+            TABLE[ 6][p[ 9] as usize                           ] ^
+            TABLE[ 5][p[10] as usize                           ] ^
+            TABLE[ 4][p[11] as usize                           ] ^
+            TABLE[ 3][p[12] as usize                           ] ^
+            TABLE[ 2][p[13] as usize                           ] ^
+            TABLE[ 1][p[14] as usize                           ] ^
+            TABLE[ 0][p[15] as usize                           ];
     }
 
     for p in &data[data.len() - data.len() % 16..data.len()] {
@@ -606,5 +606,11 @@ mod tests {
     fn test_10_byte_q_subcode() {
         let data = &[0x41, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00];
         assert_eq!(::crc16(data, 0xFFFF), 0x2832);
+    }
+
+    #[test]
+    fn test_80_byte_data() {
+        let data = vec![0xFF; 80];
+        assert_eq!(::crc16(&data, 0xFFFF), 0x7409);
     }
 }

@@ -599,3 +599,12 @@ pub fn crc16(data: &[u8], initial_crc: u16) -> u16
 
     return ((s) & CRC16_BITMASK) ^ CRC16_XOR_OUTPUT;
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_10_byte_q_subcode() {
+        let data = &[0x41, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00];
+        assert_eq!(::crc16(data, 0xFFFF), 0x2832);
+    }
+}

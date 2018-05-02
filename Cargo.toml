@@ -1,5 +1,5 @@
 [package]
-name = "crc16"
+name = "cdrom_crc"
 version = "0.1.0"
 authors = ["Misty De Meo <mistydemeo@gmail.com>"]
 

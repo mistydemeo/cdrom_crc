@@ -2,5 +2,12 @@
 name = "cdrom_crc"
 version = "0.1.0"
 authors = ["Misty De Meo <mistydemeo@gmail.com>"]
+description = "Library to generate CD-ROM standard CRCs"
+homepage = "https://github.com/mistydemeo/cdrom_crc"
+repository = "https://github.com/mistydemeo/cdrom_crc.git"
+license = "MIT"
+license-file = "LICENSE"
+readme = "README.md"
+keywords = ["cd", "cd-rom", "compact_disc", "crc", "crc16"]
 
 [dependencies]

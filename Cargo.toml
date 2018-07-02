@@ -6,7 +6,6 @@ description = "Library to generate CD-ROM standard CRCs"
 homepage = "https://github.com/mistydemeo/cdrom_crc"
 repository = "https://github.com/mistydemeo/cdrom_crc.git"
 license = "MIT"
-license-file = "LICENSE"
 readme = "README.md"
 keywords = ["cd", "cd-rom", "compact_disc", "crc", "crc16"]
 

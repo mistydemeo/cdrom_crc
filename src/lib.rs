@@ -1,3 +1,23 @@
+//! This module contains functions for calculating CRCs as defined in
+//! the CD-DA and CD-ROM standards.
+//!
+//! The CD standards use [CRCs (cyclic redundancy checks)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check)
+//! as a way to allow a player to check for corruption of low-level metadata.
+//! Since CDs are a physical medium that can suffer from scratches, dust, and other
+//! damage, it's important to be able to know that playback metadata is actually
+//! accurate before trying to read it.
+//!
+//! The CD-DA and CD-ROM standards use two types of CRC functions in different
+//! parts of each sector:
+//!
+//! 1. A 32-bit CRC within the error correction metadata located within each sector.
+//! 2. A 16-bit CRC within the second [subcode](https://en.wikipedia.org/wiki/Compact_Disc_subcode).
+//!
+//! This crate currently only provides the 16-bit CRC.
+//!
+//! This crate incorporates an adaptation of a CRC function from the
+//! [Ruby crc gem](https://rubygems.org/gems/crc) by dearblue.
+
 /*
  * A CRC calculator for {CRC-16-0x1021 init=0 xor=~0}.
  *
@@ -24,6 +44,25 @@ pub const CRC16_XOR_OUTPUT:     u16   = 0xFFFFu16;
 pub const CRC16_REFLECT_INPUT:  bool  = false;
 pub const CRC16_REFLECT_OUTPUT: bool  = false;
 
+/// Calculates a 16-bit CRC for the supplied data.
+/// This is the form of CRC used by the CD standard's Q subcode data.
+/// `initial_crc` is an initial CRC value which will be updated as
+/// calculations are performed; for Q subcode data, use the value
+/// of the `CRC16_INITIAL_CRC` constant.
+///
+/// # Example
+/// ```
+/// use cdrom_crc::{crc16, CRC16_INITIAL_CRC};
+///
+/// let result = crc16(&[0, 1, 2, 3], CRC16_INITIAL_CRC);
+/// assert_eq!(result, 0x9ECE);
+/// ```
+///
+/// # Notes
+///
+/// This form of CRC is defined in section 22.3.6 of the
+/// [CD-ROM standard](http://www.ecma-international.org/publications/standards/Ecma-130.htm)
+/// (ECMA-130, the “Yellow Book”).
 pub fn crc16(data: &[u8], initial_crc: u16) -> u16
 {
     static TABLE: [[u16; 256]; 16] = [

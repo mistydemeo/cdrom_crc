@@ -1,6 +1,7 @@
 [package]
 name = "cdrom_crc"
 version = "0.1.0"
+edition = "2018"
 authors = ["Misty De Meo <mistydemeo@gmail.com>"]
 description = "Library to generate CD-ROM standard CRCs"
 homepage = "https://github.com/mistydemeo/cdrom_crc"
